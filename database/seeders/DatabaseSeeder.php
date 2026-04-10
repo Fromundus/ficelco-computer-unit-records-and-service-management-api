@@ -70,5 +70,13 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make("password@123"),
             'role' => 'user',
         ]);
+
+        User::factory()->create([
+            'employeeid' => 1430,
+            'username' => 'billymanoguid',
+            'name' => 'Billy J. Manoguid',
+            'password' => Hash::make("password@123"),
+            'role' => 'user',
+        ]);
     }
 }
