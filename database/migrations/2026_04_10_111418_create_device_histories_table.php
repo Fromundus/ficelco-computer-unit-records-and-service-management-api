@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('device_id');
             $table->date('date_requested');
+            $table->text('issue');
             $table->text('action');
             $table->date('date_performed');
             $table->unsignedBigInteger('performed_by_employeeid');
+            $table->string('performed_by_name');
             $table->text('remarks');
             $table->timestamps();
 

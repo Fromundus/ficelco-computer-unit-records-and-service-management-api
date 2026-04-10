@@ -9,9 +9,11 @@ class DeviceHistory extends Model
     protected $fillable = [
         'device_id',
         'date_requested',
+        'issue',
         'action',
         'date_performed',
         'performed_by_employeeid',
+        'performed_by_name',
         'remarks',
     ];
 

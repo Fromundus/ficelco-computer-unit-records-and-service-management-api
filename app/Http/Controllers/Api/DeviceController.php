@@ -30,7 +30,38 @@ class DeviceController extends Controller
     //     return response()->json($devices);
     // }
 
-    public function indexByType()
+    // public function indexByType()
+    // {
+    //     $priorityOrder = [
+    //         'Computer',
+    //         'Printer',
+    //         'Scanner',
+    //         'Monitor',
+    //         'UPS',
+    //         'Speaker',
+    //         'Keyboard',
+    //         'Mouse',
+    //         'Other',
+    //     ];
+
+    //     $devices = Device::with('employee')->get()
+    //         ->groupBy('type')
+    //         ->map(function ($items, $type) {
+    //             return [
+    //                 'type' => $type,
+    //                 'devices' => $items->values()
+    //             ];
+    //         })
+    //         ->sortBy(function ($item) use ($priorityOrder) {
+    //             $index = array_search($item['type'], $priorityOrder);
+    //             return $index === false ? 999 : $index; // fallback for unknown types
+    //         })
+    //         ->values();
+
+    //     return response()->json($devices);
+    // }
+
+    public function indexByType(Request $request)
     {
         $priorityOrder = [
             'Computer',
@@ -44,7 +75,23 @@ class DeviceController extends Controller
             'Other',
         ];
 
-        $devices = Device::with('employee')->get()
+        $search = $request->search;
+
+        $query = Device::with('employee');
+
+        // 🔍 Apply search
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                ->orWhere('employee_name', 'like', "%{$search}%");
+                // ->orWhereHas('employee', function ($q2) use ($search) {
+                //     $q2->where('firstname', 'like', "%{$search}%")
+                //         ->orWhere('lastname', 'like', "%{$search}%");
+                // });
+            });
+        }
+
+        $devices = $query->get()
             ->groupBy('type')
             ->map(function ($items, $type) {
                 return [
@@ -54,7 +101,7 @@ class DeviceController extends Controller
             })
             ->sortBy(function ($item) use ($priorityOrder) {
                 $index = array_search($item['type'], $priorityOrder);
-                return $index === false ? 999 : $index; // fallback for unknown types
+                return $index === false ? 999 : $index;
             })
             ->values();
 
@@ -100,7 +147,7 @@ class DeviceController extends Controller
     // ✅ Show single device
     public function show($id)
     {
-        $device = Device::find($id);
+        $device = Device::with(['employee', 'histories'])->find($id);
 
         if (!$device) {
             return response()->json(['message' => 'Device not found'], 404);
