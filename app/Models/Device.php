@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
+    protected $connection = 'mysql';
+    protected $table = 'devices';
+
     protected $fillable = [
         'employeeid',
         'employee_name',

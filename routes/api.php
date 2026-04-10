@@ -30,6 +30,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Route::put('/{id}', [DeviceHistoryController::class, 'update']);
         // Route::delete('/{id}', [DeviceHistoryController::class, 'destroy']);
     });
+
+    Route::get('/employees/{employeeid}', [EmployeeController::class, 'show']);
 });
     
 Route::post('/login', [AuthController::class, 'login']);
