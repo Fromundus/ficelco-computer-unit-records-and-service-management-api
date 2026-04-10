@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DeviceController;
+use App\Http\Controllers\Api\Payroll\EmployeeController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\Payroll\Employee;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->group(function(){
@@ -9,8 +12,18 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/users', [UserController::class, 'all']);
-});
+    Route::get('/employees', [EmployeeController::class, 'index']);
+    Route::get('/employees/search', [EmployeeController::class, 'search']);
 
+    Route::prefix('/devices')->group(function(){
+        Route::get('/', [DeviceController::class, 'index']);
+        Route::get('/by-type', [DeviceController::class, 'indexByType']);
+        Route::post('/', [DeviceController::class, 'store']);
+        Route::put('/{id}', [DeviceController::class, 'update']);
+        Route::delete('/{id}', [DeviceController::class, 'destroy']);
+    });
+});
+    
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/test', function(){
