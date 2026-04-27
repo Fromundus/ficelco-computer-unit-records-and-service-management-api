@@ -79,8 +79,8 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
         ]);
 
-        $this->call([
-            DeviceSeeder::class,
-        ]);
+        // $this->call([
+        //     DeviceSeeder::class,
+        // ]);
     }
 }
