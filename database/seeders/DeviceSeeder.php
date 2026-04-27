@@ -47,9 +47,11 @@ class DeviceSeeder extends Seeder
 
             $deviceName = strtoupper($type) . '-' . Str::random(5);
 
+            $employeeFullName = $employee->lastname .', ' . $employee->firstname . ' ' . $employee->middlename ?? null . ' ' . $employee->suffix ?? null;
+
             $deviceData = [
                 'employeeid' => $employee->employeeid,
-                'employee_name' => $employee->firstname . ' ' . $employee->lastname,
+                'employee_name' => $employeeFullName,
                 'name' => $deviceName,
                 'type' => $type,
                 'brand' => $brand,
@@ -82,6 +84,8 @@ class DeviceSeeder extends Seeder
 
                 $performer = $employees->random();
 
+                $performerFullName = $performer->lastname .', ' . $performer->firstname . ' ' . $performer->middlename ?? null . ' ' . $performer->suffix ?? null;
+
                 DeviceHistory::create([
                     'device_id' => $device->id,
                     'date_requested' => now()->subDays(rand(10, 100)),
@@ -101,7 +105,7 @@ class DeviceSeeder extends Seeder
                     ])->random(),
                     'date_performed' => now()->subDays(rand(1, 9)),
                     'performed_by_employeeid' => $performer->employeeid,
-                    'performed_by_name' => $performer->firstname . ' ' . $performer->lastname,
+                    'performed_by_name' => $performerFullName,
                     'remarks' => 'Issue resolved successfully',
                 ]);
             }

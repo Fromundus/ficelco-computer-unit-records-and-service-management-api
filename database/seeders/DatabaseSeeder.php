@@ -78,5 +78,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make("password@123"),
             'role' => 'user',
         ]);
+
+        $this->call([
+            DeviceSeeder::class,
+        ]);
     }
 }
