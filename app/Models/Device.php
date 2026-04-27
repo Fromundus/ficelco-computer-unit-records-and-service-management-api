@@ -11,10 +11,13 @@ class Device extends Model
     protected $table = 'devices';
 
     protected $fillable = [
-        'employeeid',
-        'employee_name',
+        'mr_employeeid',
+        'mr_employee_name',
+        'user_employeeid',
+        'user_employee_name',
         'name',
         'type',
+        'custom_type',
         'brand',
         'model',
         'serial_number',
@@ -33,8 +36,12 @@ class Device extends Model
         'updated_by_employeeid',
     ];
 
-    public function employee(){
-        return $this->belongsTo(Employee::class, 'employeeid', 'employeeid');
+    public function owner(){
+        return $this->belongsTo(Employee::class, 'mr_employeeid', 'employeeid');
+    }
+
+    public function user(){
+        return $this->belongsTo(Employee::class, 'user_employeeid', 'employeeid');
     }
 
     public function histories(){

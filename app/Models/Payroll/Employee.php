@@ -52,6 +52,6 @@ class Employee extends Model
     }
 
     public function devices(){
-        return $this->hasMany(Device::class, 'employeeid', 'employeeid');
+        return $this->hasMany(Device::class, 'mr_employeeid', 'employeeid');
     }
 }

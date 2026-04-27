@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('employeeid');
-            $table->string('employee_name');
+            $table->unsignedBigInteger('mr_employeeid');
+            $table->string('mr_employee_name');
+            $table->unsignedBigInteger('user_employeeid');
+            $table->string('user_employee_name');
             $table->string('name')->unique();
             $table->string('type');
+            $table->string('custom_type')->nullable();
             $table->string('brand');
             $table->string('model')->nullable();
             $table->string('serial_number')->nullable();

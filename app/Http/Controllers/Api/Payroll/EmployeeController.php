@@ -84,7 +84,7 @@ class EmployeeController extends Controller
     }
 
     public function show($employeeid){
-        $employee = Employee::with(['setup', 'devices.employee'])->where('employeeid', $employeeid)->first();
+        $employee = Employee::with(['setup', 'devices.owner'])->where('employeeid', $employeeid)->first();
 
         return response()->json($employee);
     }
