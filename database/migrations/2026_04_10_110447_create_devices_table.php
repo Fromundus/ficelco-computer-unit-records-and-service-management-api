@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('mr_employee_name');
             $table->unsignedBigInteger('user_employeeid');
             $table->string('user_employee_name');
-            $table->string('name')->unique();
+            $table->string('name')->nullable();
             $table->string('type');
             $table->string('custom_type')->nullable();
             $table->string('brand');
